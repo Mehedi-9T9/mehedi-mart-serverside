@@ -32,6 +32,18 @@ async function run() {
             // console.log(title);
         })
 
+        //Shorting apis
+        router.get("/lowToHigh", async (req, res) => {
+            const data = await productsCollection.find().sort({ price: 1 }).toArray()
+            res.send(data)
+
+        })
+        router.get("/highToLow", async (req, res) => {
+            const data = await productsCollection.find().sort({ price: -1 }).toArray()
+            res.send(data)
+
+        })
+
         router.get("/category/", async (req, res) => {
             const category = req.query.category
             const filter = { category }
