@@ -25,12 +25,43 @@ async function run() {
             res.send(data)
         })
 
-        // router.get("/:id", async (req, res) => {
-        //     const brand = req.params.id
-        //     const filter = { brand: brand }
-        //     const data = await productsCollection.find(filter).toArray()
-        //     res.send(data)
-        // })
+        router.get("/category/", async (req, res) => {
+            const category = req.query.category
+            const filter = { category }
+            const data = await productsCollection.find(filter).toArray()
+            res.send(data)
+        })
+        router.get("/brand/", async (req, res) => {
+            const brand = req.query.brand
+            const filter = { brand }
+            const data = await productsCollection.find(filter).toArray()
+            res.send(data)
+        })
+        router.get("/categoryBrand/", async (req, res) => {
+            const brand = req.query.brand
+            const category = req.query.category
+            const filter = { brand, category }
+            const data = await productsCollection.find(filter).toArray()
+            res.send(data)
+            // console.log(brand, category);
+        })
+        router.get("/price/", async (req, res) => {
+            const min = req.query.min
+            const max = req.query.max
+            const minPrice = Number(min)
+            const maxPrice = Number(max)
+            // console.log(typeof maxPrice);
+            // const category = req.query.category
+            const filter = {
+                price: {
+                    $gte: minPrice,  // Greater than or equal to 100
+                    $lte: maxPrice   // Less than or equal to 500
+                }
+            }
+            const data = await productsCollection.find(filter).toArray()
+            res.send(data)
+            // console.log(brand, category);
+        })
 
 
 
