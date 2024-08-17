@@ -12,15 +12,8 @@ app.use(cors())
 app.use(express.json())
 
 
-
-
-
-
 //routes
 app.use("/products", products)
-
-
-
 
 
 //running Port

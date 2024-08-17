@@ -16,9 +16,7 @@ async function run() {
         // Connect the client to the server	(optional starting in v4.7)
         const productsCollection = client.db("mehedi-mart").collection("products")
 
-
-
-
+        //pazination route
 
         router.get("/", async (req, res) => {
             const page = parseInt(req.query.page);
@@ -26,7 +24,7 @@ async function run() {
             const data = await productsCollection.find().skip(page * size).limit(size).toArray()
             res.send(data)
         })
-
+        //Search related apis
         router.get("/title", async (req, res) => {
             const title = req.query.title
             const data = await productsCollection.find({ title: new RegExp(title, "i") }).toArray()
@@ -44,7 +42,7 @@ async function run() {
             res.send(data)
 
         })
-
+        //categoriazion
         router.get("/category/", async (req, res) => {
             const category = req.query.category
             const filter = { category }
