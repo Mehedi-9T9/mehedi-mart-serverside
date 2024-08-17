@@ -21,7 +21,9 @@ async function run() {
 
 
         router.get("/", async (req, res) => {
-            const data = await productsCollection.find().toArray()
+            const page = parseInt(req.query.page);
+            const size = 6;
+            const data = await productsCollection.find().skip(page * size).limit(size).toArray()
             res.send(data)
         })
 
@@ -29,7 +31,6 @@ async function run() {
             const title = req.query.title
             const data = await productsCollection.find({ title: new RegExp(title, "i") }).toArray()
             res.send(data)
-            // console.log(title);
         })
 
         //Shorting apis
