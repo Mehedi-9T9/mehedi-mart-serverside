@@ -50,13 +50,70 @@ async function run() {
             const max = req.query.max
             const minPrice = Number(min)
             const maxPrice = Number(max)
-            // console.log(typeof maxPrice);
-            // const category = req.query.category
             const filter = {
                 price: {
-                    $gte: minPrice,  // Greater than or equal to 100
-                    $lte: maxPrice   // Less than or equal to 500
+                    $gte: minPrice,
+                    $lte: maxPrice
                 }
+            }
+            const data = await productsCollection.find(filter).toArray()
+            res.send(data)
+            // console.log(brand, category);
+        })
+        router.get("/mixed/", async (req, res) => {
+            const min = req.query.min
+            const max = req.query.max
+            const minPrice = Number(min)
+            const maxPrice = Number(max)
+
+            const brand = req.query.brand
+            const category = req.query.category
+
+            const filter = {
+                price: {
+                    $gte: minPrice,
+                    $lte: maxPrice
+                }, category, brand
+            }
+            const data = await productsCollection.find(filter).toArray()
+            res.send(data)
+            // console.log(brand, category);
+        })
+
+
+        router.get("/categoryPrice/", async (req, res) => {
+            const min = req.query.min
+            const max = req.query.max
+            const minPrice = Number(min)
+            const maxPrice = Number(max)
+
+            // const brand = req.query.brand
+            const category = req.query.category
+
+            const filter = {
+                price: {
+                    $gte: minPrice,
+                    $lte: maxPrice
+                }, category
+            }
+            const data = await productsCollection.find(filter).toArray()
+            res.send(data)
+            // console.log(brand, category);
+        })
+        router.get("/brandPrice/", async (req, res) => {
+            const min = req.query.min
+            const max = req.query.max
+            const minPrice = Number(min)
+            const maxPrice = Number(max)
+
+            const brand = req.query.brand
+            // const category = req.query.category
+
+            const filter = {
+                price: {
+                    $gte: minPrice,
+                    $lte: maxPrice
+                }, brand
             }
             const data = await productsCollection.find(filter).toArray()
             res.send(data)
