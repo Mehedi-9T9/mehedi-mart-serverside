@@ -25,6 +25,13 @@ async function run() {
             res.send(data)
         })
 
+        router.get("/title", async (req, res) => {
+            const title = req.query.title
+            const data = await productsCollection.find({ title: new RegExp(title, "i") }).toArray()
+            res.send(data)
+            // console.log(title);
+        })
+
         router.get("/category/", async (req, res) => {
             const category = req.query.category
             const filter = { category }
