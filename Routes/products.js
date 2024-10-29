@@ -138,6 +138,15 @@ async function run() {
             // console.log(brand, category);
         })
 
+        router.get("/singleData/", async(req, res)=>{
+            const id = req.query.id
+            const numId = Number(id)
+            
+            const data =await productsCollection.findOne({productId:numId})
+            console.log("id is console", data);
+            res.send(data)
+        })
+
 
 
 
