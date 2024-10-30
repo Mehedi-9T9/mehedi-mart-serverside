@@ -15,6 +15,7 @@ async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
         const productsCollection = client.db("mehedi-mart").collection("products")
+        const myCartCollection = client.db("mehedi-mart").collection("myCart")
 
         //pazination route
 
@@ -141,11 +142,27 @@ async function run() {
         router.get("/singleData/", async(req, res)=>{
             const id = req.query.id
             const numId = Number(id)
-            
             const data =await productsCollection.findOne({productId:numId})
-            console.log("id is console", data);
             res.send(data)
         })
+
+        router.get("/similarData/", async(req, res)=>{
+            const category = req.query.category
+            const brand = req.query.brand
+           const filter={category,brand} 
+            const data =await productsCollection.find(filter).limit(3).toArray()
+            res.send(data)
+        })
+       
+
+        // my cart data related apis
+        router.post("/myCart", async(req, res)=>{
+            const myCart =req.body
+            const data =await myCartCollection.insertOne(myCart)
+            res.send(data)
+        })
+
+       
 
 
 
