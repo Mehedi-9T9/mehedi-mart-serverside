@@ -162,6 +162,19 @@ async function run() {
             res.send(data)
         })
 
+        router.get("/mycartProducts", async(req, res)=>{
+            const data =await myCartCollection.find().toArray()
+            res.send(data)
+        })
+
+        router.delete("/mycartDelete/",async(req, res)=>{
+            const id =req.query.id
+           const newId= Number(id)
+            const data =await myCartCollection.deleteOne({productId:newId})
+            res.send(data)
+
+        })
+
        
 
 
