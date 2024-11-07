@@ -174,6 +174,22 @@ async function run() {
             res.send(data)
 
         })
+        router.patch("/mycartIncrement/",async(req, res)=>{
+            const id =req.query.id
+           const newId= Number(id)
+           const updateDoc = { $inc: { quantity: 1 } }
+            const data =await myCartCollection.updateOne({productId:newId},updateDoc)
+            res.send(data)
+
+        })
+        router.patch("/mycartDecrement/",async(req, res)=>{
+            const id =req.query.id
+           const newId= Number(id)
+           const updateDoc = { $inc: { quantity: -1 } }
+            const data =await myCartCollection.updateOne({productId:newId},updateDoc)
+            res.send(data)
+
+        })
 
        
 
